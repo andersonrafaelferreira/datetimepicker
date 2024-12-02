@@ -1,19 +1,30 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import "./App.css";
 
 import styled from 'styled-components'
 
 const DateContainer = styled.div`
-  width: 100%;
-  padding: 12px 16px;
+  max-width: 100%;
+  padding: 16px;
   border-radius: .5rem;
   border: 1px solid #d9d9d9;
   height: 24px;
+
 `
+
 
 function App() {
   const [selectedDate, setSelectedDate] = useState("");
   const inputRef = useRef<HTMLInputElement | null>(null);
+
+  useEffect(() => { 
+    const hoje = new Date(); 
+    const dia = String(hoje.getDate()).padStart(2, '0'); 
+    const mes = String(hoje.getMonth() + 1).padStart(2, '0'); 
+    const ano = hoje.getFullYear(); 
+    const dataFormatada = `${ano}/${mes}/${dia}`; 
+    setSelectedDate(dataFormatada); 
+  }, []);
 
   const handleDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(event.target.value);
@@ -25,19 +36,38 @@ function App() {
     }
   };
 
-  return (
-    <DateContainer>
-      <input
-        ref={inputRef}
-        type="date"
-        value={selectedDate}
-        onChange={handleDateChange}
-        style={{opacity: 0}}
-      />
-      <button onClick={clickCalendarIcon}>Open Calendar</button>
+  function formatDate(date: string): string {
+    const [year, month, day] = date.split('-');
+    const formattedDate = `${day}/${month}/${year}`; 
+    return formattedDate;
+  }
 
-      <input type="text" value={selectedDate} />
-    </DateContainer>
+  return (
+    <>
+      <DateContainer onClick={clickCalendarIcon}>
+        <div style={{
+          flexDirection: 'row', gap: '8px', display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'
+        }}>
+          {/* <input type="date" value={selectedDate} disabled 
+          style={{
+            height: '24px', border: 0,
+            background: 'transparent', display: 'flex', flex: 1, fontSize: '20px', textAlign: 'left'
+          }} /> */}
+          <span>{selectedDate !== 'undefined' && formatDate(selectedDate)}</span>
+          <input
+          ref={inputRef}
+          type="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+          style={{ opacity: 0, height: '24px', display: 'flex', flex: 1, border: 0 }}
+        />
+          <img src="https://cdn-icons-png.flaticon.com/128/2948/2948088.png" width={16} height={16} />
+        </div>
+      </DateContainer>
+      <p>{selectedDate !== 'undefined' && formatDate(selectedDate)}</p>
+    </>
   );
 }
 
