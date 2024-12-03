@@ -1,7 +1,29 @@
 import { useState, useRef, useEffect } from "react";
-import "./App.css";
+// import "./App.css";
 
 import styled from "styled-components";
+
+const IconButton = styled.button`
+  display: flex;
+  alignitems: center;
+  justifycontent: center;
+  backgroundcolor: transparent;
+  padding: 0;
+  border: none;
+`;
+
+const DateWritten = styled.span`
+  color: 1f1f1f;
+  fontsize: 16px;
+`;
+
+const HiddenInputDate = styled.input`
+  opacity: 0;
+  height: 24px;
+  display: flex;
+  flex: 1;
+  border: 0;
+`;
 
 const DateContainer = styled.div`
   max-width: 100%;
@@ -9,6 +31,12 @@ const DateContainer = styled.div`
   border-radius: 0.5rem;
   border: 1px solid #d9d9d9;
   height: 24px;
+
+  display: flex;
+  justifyContent: space-between;
+  alignItems: center;
+  flex-direction: row
+
 `;
 
 function App() {
@@ -32,57 +60,32 @@ function App() {
   }
 
   useEffect(() => {
-    const hoje = new Date();
-    const dia = String(hoje.getDate()).padStart(2, "0");
-    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
-    const ano = hoje.getFullYear();
-    const dataFormatada = `${ano}-${mes}-${dia}`;
-    setSelectedDate(dataFormatada);
+    const today = new Date();
+    const day = String(today.getDate()).padStart(2, "0");
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const year = today.getFullYear();
+    const formatted = `${year}-${month}-${day}`;
+    setSelectedDate(formatted);
   }, []);
 
   return (
     <>
       <DateContainer onClick={clickCalendarIcon}>
-        <div
-          style={{
-            flexDirection: "row",
-            gap: "8px",
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          {/* <input type="date" value={selectedDate} disabled 
-          style={{
-            height: '24px', border: 0,
-            background: 'transparent', display: 'flex', flex: 1, fontSize: '20px', textAlign: 'left'
-          }} /> */}
-          <span>
-            {selectedDate && formatDate(selectedDate)}
-          </span>
-          <input
-            ref={inputRef}
-            type="date"
-            value={selectedDate}
-            onChange={handleDateChange}
-            style={{
-              opacity: 0,
-              height: "24px",
-              display: "flex",
-              flex: 1,
-              border: 0,
-            }}
+        <DateWritten>{selectedDate && formatDate(selectedDate)}</DateWritten>
+        <HiddenInputDate
+          ref={inputRef}
+          type="date"
+          value={selectedDate}
+          onChange={handleDateChange}
+        />
+        <IconButton>
+          <img
+            src="https://cdn-icons-png.flaticon.com/128/2948/2948088.png"
+            width={20}
+            height={20}
           />
-          <button>
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/2948/2948088.png"
-              width={16}
-              height={16}
-            />
-          </button>
-        </div>
+        </IconButton>
       </DateContainer>
-      <p>{selectedDate && formatDate(selectedDate)}</p>
     </>
   );
 }
