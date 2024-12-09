@@ -11,8 +11,9 @@ const IconButton = styled.button`
 `;
 
 const DateWritten = styled.span`
-  color: 1f1f1f;
-  fontsize: 16px;
+  color: #1f1f1f;
+  font-size: 16px;
+  align-self: center;
 `;
 
 const HiddenInputDate = styled.input`
