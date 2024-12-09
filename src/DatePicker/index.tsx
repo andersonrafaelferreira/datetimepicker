@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const IconButton = styled.button`
   display: flex;
-  aligni=tems: center;
-  justify=content: center;
+  aligni-tems: center;
+  justify-content: center;
   background-color: transparent;
   padding: 0;
   border: none;
