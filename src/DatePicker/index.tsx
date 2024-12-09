@@ -3,9 +3,9 @@ import styled from "styled-components";
 
 const IconButton = styled.button`
   display: flex;
-  alignitems: center;
-  justifycontent: center;
-  backgroundcolor: transparent;
+  aligni=tems: center;
+  justify=content: center;
+  background-color: transparent;
   padding: 0;
   border: none;
 `;
@@ -32,8 +32,8 @@ const DateContainer = styled.div`
   height: 24px;
 
   display: flex;
-  justifycontent: space-between;
-  alignitems: center;
+  justify-content: space-between;
+  align-items: center;
   flex-direction: row;
 `;
 
